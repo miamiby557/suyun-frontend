@@ -22,6 +22,9 @@ export const hideRPAInsert = createAction(ACTION_PREFIX + "HIDE_RPA_INSERT");
 export const insertFeeDeclare = createThunkAction(ACTION_PREFIX + "INSERT", params =>
     postJson(path + "/insertFeeDeclare", params)
 );
+export const exportExcel = createThunkAction(ACTION_PREFIX + "EXPORT_EXCEL", params =>
+    postJson(path + "/exportExcel", params)
+);
 export const getById = createThunkAction(ACTION_PREFIX + "GET",params =>
     get(path+"/"+params)
 )

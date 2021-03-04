@@ -5,6 +5,7 @@ import {paginationProps, tableProps} from "../../lib/ui";
 import {getById, query, select, showEdit} from "./actions";
 import {getStatusText} from "../../lib/func";
 import {query as carrierQuery} from "../carrier/actions";
+import AddressInfo from "../../components/AddressInfo";
 
 class List extends PureComponent {
 
@@ -40,28 +41,35 @@ class List extends PureComponent {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && text.substr(0, 10)}</span>,
-                    width: 200
+                    width: 150
                 };
             } else if ("number" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && Number(text).toFixed(3)}</span>,
-                    width: 200
+                    width: 100
                 };
             } else if ("money" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && Number(text).toFixed(2)}</span>,
-                    width: 200
+                    width: 100
                 };
             } else if ("feeDeclareEnum" === column.type) {
                 return {
                     title: '状态',
                     dataIndex: 'status',
-                    width: 200,
-                    render: text => getStatusText(text, feeDeclareStatus)
+                    render: text => getStatusText(text, feeDeclareStatus),
+                    width: 180
+                };
+            }else if ("address" === column.type) {
+                return {
+                    title: column.label,
+                    dataIndex: column.value,
+                    render: (text) => <AddressInfo {...text}/>,
+                    width: 180
                 };
             } else {
                 if (column.clickable === true) {
@@ -77,14 +85,14 @@ class List extends PureComponent {
                                 {text}
                             </a>
                         ),
-                        width: 400
+                        width: 200
                     };
                 } else {
                     return {
                         title: column.label,
                         dataIndex: column.value,
                         render: text => <span>{text}</span>,
-                        width: 400
+                        width: 100
                     };
                 }
             }
@@ -97,7 +105,6 @@ class List extends PureComponent {
             dataSource,
             loading
         } = this.props;
-
         const tablePagination = {
             ...paginationProps,
             total: totalElements,
@@ -114,7 +121,7 @@ class List extends PureComponent {
         return (
             <Table
                 {...tableProps}
-                scroll={{x: 1500, y: 500}}
+                scroll={{x: 1300, y: 500}}
                 columns={newColumns}
                 rowSelection={rowSelection}
                 pagination={tablePagination}

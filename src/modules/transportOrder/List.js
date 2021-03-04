@@ -3,6 +3,7 @@ import {Table} from "antd";
 import {connect} from "react-redux";
 import {paginationProps, tableProps} from "../../lib/ui";
 import {getById, getCarrierList, getClientList, query, select, showEdit} from "./actions";
+import AddressInfo from "../../components/AddressInfo";
 
 class List extends PureComponent {
     onPageChange = (page, pageSize) => {
@@ -47,21 +48,28 @@ class List extends PureComponent {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && text.substr(0, 10)}</span>,
-                    width: 200
+                    width: 150
                 };
             } else if ("number" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && Number(text).toFixed(3)}</span>,
-                    width: 200
+                    width: 150
                 };
             } else if ("money" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && Number(text).toFixed(2)}</span>,
-                    width: 200
+                    width: 100
+                };
+            }else if ("address" === column.type) {
+                return {
+                    title: column.label,
+                    dataIndex: column.value,
+                    render: (text) => <AddressInfo {...text}/>,
+                    width: 180
                 };
             } else {
                 if (column.clickable === true) {
@@ -84,7 +92,7 @@ class List extends PureComponent {
                         title: column.label,
                         dataIndex: column.value,
                         render: text => <span>{text}</span>,
-                        width: 200
+                        width: 150
                     };
                 }
             }
@@ -106,7 +114,7 @@ class List extends PureComponent {
         return (
             <Table
                 {...tableProps}
-                scroll={{x: 5000, y: 500}}
+                scroll={{x:1300, y: 500}}
                 columns={newColumns}
                 rowSelection={rowSelection}
                 pagination={tablePagination}

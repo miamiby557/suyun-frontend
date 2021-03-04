@@ -138,7 +138,17 @@ class CreateModal extends PureComponent {
                         model.from.contactMan = profile.contactMan;
                         model.from.contactPhone = profile.contactPhone;
                         model.from.company = profile.company;
-                        console.info('update',model);
+                        dispatch(updateModel(model));
+                    }else{
+                        model.clientName = value;
+                        model.from.district = "";
+                        model.from.province = "";
+                        model.from.city = "";
+                        model.from.street = "";
+                        model.from.fullAddress = "";
+                        model.from.contactMan = "";
+                        model.from.contactPhone = "";
+                        model.from.company = "";
                         dispatch(updateModel(model));
                     }
                 }
@@ -187,16 +197,8 @@ class CreateModal extends PureComponent {
                             rules: [{required: true, message: '请输入托运单号'}]
                         }
                     }, {
-                        field: 'consignNo',
-                        title: '托运单号',
-                        type: 'text'
-                    }, {
-                        field: 'saleNo',
-                        title: '销售订单号',
-                        type: 'text'
-                    }, {
-                        field: 'deliveryNo',
-                        title: '发货单号',
+                        field: 'projectNo',
+                        title: '项目号',
                         type: 'text'
                     }, {
                         field: 'transportType',
@@ -222,24 +224,9 @@ class CreateModal extends PureComponent {
                 title: '订单明细',
                 fields: [
                     {
-                        field: 'productCode',
-                        title: '品号',
-                        type: 'text'
-                    }, {
-                        field: 'productName',
-                        title: '品名',
-                        type: 'text'
-                    }, {
                         field: 'packageType',
                         title: '包装方式',
                         type: 'text'
-                    }, {
-                        field: 'calculateType',
-                        title: '计费方式',
-                        type: 'listSelector',
-                        controlProps: {
-                            dataSource: calculateType
-                        }
                     }, {
                         field: 'itemCount',
                         title: '件数',

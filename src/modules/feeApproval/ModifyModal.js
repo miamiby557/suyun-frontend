@@ -62,6 +62,21 @@ class ModifyModal extends PureComponent {
                         type: 'text',
                         readonly: true
                     }, {
+                        field: 'from',
+                        title: '始发地',
+                        type: 'address',
+                        readonly: true
+                    }, {
+                        field: 'to',
+                        title: '目的地',
+                        type: 'address',
+                        readonly: true
+                    }, {
+                        field: 'vehicleType',
+                        title: '车型',
+                        type: 'text',
+                        readonly: true
+                    }, {
                         field: 'inCome',
                         title: '应收运费',
                         readonly:true,

@@ -59,12 +59,12 @@ class Filter extends PureComponent {
                 }
             }, {
                 key: '3',
-                field: 'consignNo',
+                field: 'cindaNo',
                 type: 'text',
                 expandable: true,
-                title: '托运单号',
+                title: '先达单号',
                 fieldOptions: {
-                    initialValue: this.state.consignNo
+                    initialValue: this.state.cindaNo
                 }
             }
         ];

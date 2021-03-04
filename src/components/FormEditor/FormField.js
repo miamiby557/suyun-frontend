@@ -9,6 +9,7 @@ import DateTimePicker from '.././DateTimePicker';
 import {getDistrictLabel} from '../.././lib/func';
 import CheckBoxSelector from "../CheckBoxSelector";
 import RadioSelector from "../RadioSelector";
+import AddressInfo from "../AddressInfo";
 
 const {TextArea} = Input;
 const FormItem = Form.Item;
@@ -153,6 +154,9 @@ const getFieldControl = ({
                 return <span className="ant-form-text">{text}</span>;
             }
             return <Switch {...controlProps} placeholder={title}/>;
+        case 'address':
+            const text = getFieldValue(field);
+            return <AddressInfo {...text}/>;
 
         default:
             if (readonly === true) {
@@ -206,6 +210,7 @@ FormField.propTypes = {
         'date',
         'datetime',
         'select',
+        'address',
         'listSelector',
         'districtSelector',
         'dateRangePicker',

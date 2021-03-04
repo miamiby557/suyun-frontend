@@ -1,10 +1,11 @@
 import React, {PureComponent} from "react";
 import {Table} from "antd";
 import {connect} from "react-redux";
-import {paginationProps} from "../../lib/ui";
+import {paginationProps, tableProps} from "../../lib/ui";
 import {getById, query, select, showRPAInsert} from "./actions";
 import {query as clientQuery} from "../client/actions";
 import {query as carrierQuery} from "../carrier/actions";
+import AddressInfo from "../../components/AddressInfo";
 
 class List extends PureComponent {
     onPageChange = (page, pageSize) => {
@@ -45,14 +46,14 @@ class List extends PureComponent {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && text.substr(0, 10)}</span>,
-                    width: 200
+                    width: 150
                 };
             } else if ("number" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && Number(text).toFixed(3)}</span>,
-                    width: 200
+                    width: 100
                 };
             } else if ("money" === column.type) {
 
@@ -64,7 +65,7 @@ class List extends PureComponent {
                         return <span
                             style={{color: color}}>￥{text && Number(text).toFixed(2)}</span>
                     },
-                    width: 200
+                    width: 100
                 };
             } else if ("percent" === column.type) {
                 return {
@@ -75,6 +76,13 @@ class List extends PureComponent {
                         return <span
                             style={{color: color}}>{text && Number(text).toFixed(2)}%</span>
                     },
+                    width: 200
+                };
+            }else if ("address" === column.type) {
+                return {
+                    title: column.label,
+                    dataIndex: column.value,
+                    render: (text) => <AddressInfo {...text}/>,
                     width: 200
                 };
             } else {
@@ -98,7 +106,7 @@ class List extends PureComponent {
                         title: column.label,
                         dataIndex: column.value,
                         render: text => <span>{text}</span>,
-                        width: 200
+                        width: 100
                     };
                 }
             }
@@ -119,7 +127,8 @@ class List extends PureComponent {
         };
         return (
             <Table
-                scroll={{x: 5000, y: 500}}
+                {...tableProps}
+                scroll={{x: 1500, y: 500}}
                 columns={newColumns}
                 rowSelection={rowSelection}
                 pagination={tablePagination}

@@ -13,7 +13,7 @@ class ModifyModal extends PureComponent {
             const {dispatch, model} = this.props;
             formEditor.validateFieldsAndScroll((err, values) => {
                 if (!err) {
-                    if ("零担" === values.transportType) {
+                    /*if ("零担" === values.transportType) {
                         if (values.volume.length === 0 || values.weight.length === 0) {
                             notification.error({
                                 message: '运输方式为零担,总体积总重量必填'
@@ -28,7 +28,7 @@ class ModifyModal extends PureComponent {
                             });
                             return;
                         }
-                    }
+                    }*/
                     const updateModel = {...model, ...values};
                     if (updateModel.deliveryDate instanceof moment)
                         updateModel.deliveryDate = updateModel.deliveryDate.format("YYYY-MM-DD HH:mm:ss");
@@ -73,7 +73,7 @@ class ModifyModal extends PureComponent {
     };
 
     render() {
-        const {loading, transportType, clientList, carrierList, packageType, vehicleType, calculateType, visible, model} = this.props;
+        const {loading, transportType, clientList, carrierList, packageType, vehicleType, visible, model} = this.props;
         console.info(model);
         const schema = [
             {
@@ -101,16 +101,8 @@ class ModifyModal extends PureComponent {
                         title: '先达单号',
                         type: 'text'
                     }, {
-                        field: 'consignNo',
-                        title: '托运单号',
-                        type: 'text'
-                    }, {
-                        field: 'saleNo',
-                        title: '销售订单号',
-                        type: 'text'
-                    }, {
-                        field: 'deliveryNo',
-                        title: '发货单号',
+                        field: 'projectNo',
+                        title: '项目号',
                         type: 'text'
                     }, {
                         field: 'transportType',
@@ -133,26 +125,11 @@ class ModifyModal extends PureComponent {
                 title: '订单明细',
                 fields: [
                     {
-                        field: 'productCode',
-                        title: '品号',
-                        type: 'text'
-                    }, {
-                        field: 'productName',
-                        title: '品名',
-                        type: 'text'
-                    }, {
                         field: 'packageType',
                         title: '包装方式',
                         type: 'listSelector',
                         controlProps: {
                             dataSource: packageType
-                        }
-                    }, {
-                        field: 'calculateType',
-                        title: '计费方式',
-                        type: 'listSelector',
-                        controlProps: {
-                            dataSource: calculateType
                         }
                     }, {
                         field: 'itemCount',

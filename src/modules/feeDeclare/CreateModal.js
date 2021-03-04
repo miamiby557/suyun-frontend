@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import {Modal, notification} from "antd";
-import {create, hideCreate, query} from "./actions";
+import {create, hideCreate} from "./actions";
+import {query as orderQuery} from "../transportOrder/actions";
 import FormEditor from '../../components/FormEditor';
 import {connect} from "react-redux";
 import {formatMoney, parserMoney} from "../../lib/func";
@@ -19,10 +20,10 @@ class CreateModal extends PureComponent {
                     dispatch(create(values)).then(action => {
                         if (action.error !== true) {
                             dispatch(hideCreate());
-                            dispatch(query({}));
                             notification.success({
                                 message: '申报成功'
                             });
+                            dispatch(orderQuery({}));
                         } else {
                             notification.error({
                                 message: '申报失败:' + action.message
@@ -55,6 +56,21 @@ class CreateModal extends PureComponent {
                     }, {
                         field: 'deliveryNo',
                         title: '发货单号',
+                        type: 'text',
+                        readonly: true
+                    }, {
+                        field: 'from',
+                        title: '始发地',
+                        type: 'address',
+                        readonly: true
+                    }, {
+                        field: 'to',
+                        title: '目的地',
+                        type: 'address',
+                        readonly: true
+                    }, {
+                        field: 'vehicleType',
+                        title: '车型',
                         type: 'text',
                         readonly: true
                     }, {

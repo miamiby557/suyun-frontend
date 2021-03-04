@@ -1,26 +1,33 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {Form} from "antd";
-import {query, updateCarrierName, updateClientName, updateFilter, updateTime} from "./actions";
+import {query, updateCarrierName, updateClientName, updateTime} from "./actions";
 import FilterForm from "../../components/FilterForm";
 import {DATE_FORMAT} from "../../lib/func";
 
 class Filter extends PureComponent {
+    state = {};
     handleSearch = (values) => {
         const {dispatch, pageSize} = this.props;
         let fields = values;
-        if (fields.createTimeRange && fields.createTimeRange.length > 1) {
-            fields.createTimeStart = fields.createTimeRange[0].format(DATE_FORMAT);
-            fields.createTimeEnd = fields.createTimeRange[1].format(DATE_FORMAT);
+        this.setState({...fields});
+        if (fields.deliveryDateRange && fields.deliveryDateRange.length > 1) {
+            fields.deliveryDateStart = fields.deliveryDateRange[0].format(DATE_FORMAT);
+            fields.deliveryDateEnd = fields.deliveryDateRange[1].format(DATE_FORMAT);
+            dispatch(updateTime({
+                deliveryDateStart: fields.deliveryDateStart,
+                deliveryDateEnd: fields.deliveryDateEnd
+            }));
         }
-        dispatch(updateFilter(values));
+        // dispatch(updateFilter(values));
         dispatch(query({...fields, page: 1, pageSize}));
     };
 
-    createTimeChange = (dates, dateStrings) => {
+    deliveryDateChange = (dates, dateStrings) => {
         const {dispatch, filter} = this.props;
-        filter.createTimeRange = [dates[0], dates[1]];
-        dispatch(updateTime({createTimeStart: dateStrings[0], createTimeEnd: dateStrings[1]}));
+        filter.deliveryDateRange = [dates[0], dates[1]];
+        this.setState({deliveryDateRange: filter.deliveryDateRange});
+        dispatch(updateTime({deliveryDateStart: dateStrings[0], deliveryDateEnd: dateStrings[1]}));
     };
 
     clientChange = clientName => {
@@ -53,29 +60,29 @@ class Filter extends PureComponent {
                 width: 200,
                 title: '客户名称',
                 fieldOptions: {
-                    initialValue: clientName
+                    initialValue: this.state.clientName
                 }
             }, {
-                key: 'createTimeRange',
-                field: 'createTimeRange',
+                key: '2',
+                field: 'deliveryDateRange',
                 type: 'dateRangePicker',
                 expandable: true,
-                title: '创建日期',
+                title: '发货日期',
                 fieldOptions: {
-                    initialValue: filter.createTimeRange
+                    initialValue: this.state.deliveryDateRange
                 },
                 controlProps: {
-                    onChange: this.createTimeChange
+                    onChange: this.deliveryDateChange
                 }
             }, {
-                key: 'consignNo',
-                field: 'consignNo',
+                key: 'cindaNo',
+                field: 'cindaNo',
                 type: 'text',
                 expandable: true,
                 width: 200,
-                title: '托运单号',
+                title: '先达单号',
                 fieldOptions: {
-                    initialValue: filter.consignNo
+                    initialValue: this.state.cindaNo
                 }
             }, {
                 key: 'transportChannel',
@@ -85,7 +92,7 @@ class Filter extends PureComponent {
                 width: 200,
                 title: '走货渠道',
                 fieldOptions: {
-                    initialValue: carrierName
+                    initialValue: this.state.carrierName
                 }
             }
         ];

@@ -21,10 +21,7 @@ class Toolbar extends PureComponent {
         const {dispatch, dataSource, selectedRowKeys} = this.props;
         const foundOrder = dataSource.find(order => order.id === selectedRowKeys[0]);
         dispatch(showCreateFee({
-            transportChannel: foundOrder.transportChannel,
-            cindaNo: foundOrder.cindaNo,
-            clientName: foundOrder.clientName,
-            deliveryNo: foundOrder.deliveryNo,
+            ...foundOrder,
             inCome: foundOrder.inShippingFee | 0
         }));
     };

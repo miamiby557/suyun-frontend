@@ -4,8 +4,8 @@ const defaultState = {
     transportNo: null,
     selectedRowKeys: [],
     filter: {},
-    createTimeStart: '',
-    createTimeEnd: '',
+    deliveryDateStart: '',
+    deliveryDateEnd: '',
     clientName: '',
     carrierName: '',
     page: 1,
@@ -34,7 +34,7 @@ export default function list(state = defaultState, action) {
         case 'FINANCIAL_REPORT.UPDATE_FILTER':
             return {...state, filter: {...payload}};
         case 'FINANCIAL_REPORT.UPDATE_TIME':
-            return {...state, createTimeStart: payload.createTimeStart, createTimeEnd: payload.createTimeEnd};
+            return {...state, deliveryDateStart: payload.deliveryDateStart, deliveryDateEnd: payload.deliveryDateEnd};
         case 'FINANCIAL_REPORT.UPDATE_CLIENT_NAME':
             return {...state, clientName: payload};
         case 'FINANCIAL_REPORT.UPDATE_CARRIER_NAME':

@@ -5,6 +5,7 @@ import {paginationProps, tableProps} from "../../lib/ui";
 import {getById, query, showEdit} from "./actions";
 import {getStatusText} from "../../lib/func";
 import {select} from "./actions";
+import AddressInfo from "../../components/AddressInfo";
 
 class List extends PureComponent {
 
@@ -39,28 +40,35 @@ class List extends PureComponent {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && text.substr(0, 10)}</span>,
-                    width: 200
+                    width: 150
                 };
             } else if ("number" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && Number(text).toFixed(3)}</span>,
-                    width: 200
+                    width: 100
                 };
             } else if ("money" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
                     render: text => <span>{text && Number(text).toFixed(2)}</span>,
-                    width: 200
+                    width: 100
                 };
             } else if ("feeDeclareEnum" === column.type) {
                 return {
                     title: '状态',
                     dataIndex: 'status',
-                    width: 200,
+                    width: 80,
                     render: text => getStatusText(text, feeDeclareStatus)
+                };
+            }else if ("address" === column.type) {
+                return {
+                    title: column.label,
+                    dataIndex: column.value,
+                    render: (text) => <AddressInfo {...text}/>,
+                    width: 180
                 };
             } else {
                 if (column.clickable === true) {
@@ -83,7 +91,7 @@ class List extends PureComponent {
                         title: column.label,
                         dataIndex: column.value,
                         render: text => <span>{text}</span>,
-                        width: 200
+                        width: 100
                     };
                 }
             }
@@ -114,7 +122,7 @@ class List extends PureComponent {
             <Table
                 {...tableProps}
                 columns={newColumns}
-                scroll={{x: 1500, y: 500}}
+                scroll={{x: 1300, y: 500}}
                 rowSelection={rowSelection}
                 pagination={tablePagination}
                 dataSource={dataSource}
