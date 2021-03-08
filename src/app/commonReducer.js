@@ -119,14 +119,14 @@ const initialState = {
         {value: 'person', label: '申请人'}
     ],
     profileColumns:[
-        {value: 'name', label: '名称', clickable: true},
+        {value: 'name', label: '客户简称', clickable: true},
         {value: 'province', label: '省'},
         {value: 'city', label: '市'},
         // {value: 'street', label: '区'},
         {value: 'fullAddress', label: '详细地址'},
         {value: 'contactMan', label: '联系人'},
         {value: 'contactPhone', label: '联系人电话'},
-        {value: 'company', label: '公司'}
+        {value: 'company', label: '公司全称'}
     ]
 };
 
