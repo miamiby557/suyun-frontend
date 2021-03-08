@@ -49,7 +49,7 @@ class CreateModal extends PureComponent {
                 fields: [
                     {
                         field: 'name',
-                        title: '名称',
+                        title: '简称',
                         type: 'text',
                         fieldOptions: {
                             rules: [{required: true, message: '请输入名称'}]
@@ -64,7 +64,7 @@ class CreateModal extends PureComponent {
                     },
                     {
                         field: 'company',
-                        title: '发货单位',
+                        title: '全称(公司)',
                         type: 'text'
                     },
                     {

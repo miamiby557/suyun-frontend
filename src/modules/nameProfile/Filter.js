@@ -22,7 +22,7 @@ class Filter extends PureComponent {
                 field: 'name',
                 type: 'text',
                 expandable: true,
-                title: '名称',
+                title: '简称',
                 fieldOptions:{
                     initialValue :this.state.name
                 }
