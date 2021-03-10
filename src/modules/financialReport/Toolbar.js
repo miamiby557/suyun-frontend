@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {Button, Icon, notification} from "antd";
-import {exportExcel, getById, showInsert, showRPAInsert} from "./actions";
+import {exportExcel, getById, showInsert, showRPAInsert, updateTime} from "./actions";
 import {getPrincipal} from "../../lib/identity";
 
 
@@ -31,6 +31,7 @@ class Toolbar extends PureComponent {
             userAccount: principal.account
         })).then(action => {
             if (action.error !== true) {
+                dispatch(updateTime({deliveryDateStart: "", deliveryDateEnd: ""}));
                 notification.success({
                     message: '提交成功,请几分钟后查看您的邮箱'
                 });
