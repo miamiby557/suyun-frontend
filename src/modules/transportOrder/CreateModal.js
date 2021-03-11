@@ -47,21 +47,31 @@ class CreateModal extends PureComponent {
                     }
                     if (values.from.district) {
                         const [province = '', city = '', area = ''] = getSingleDistrictLabel(values.from.district);
-                        if(values.from.district instanceof Array){
+                        if (values.from.district instanceof Array) {
                             values.from.district = values.from.district[values.from.district - 1];
                         }
                         values.from.province = province;
                         values.from.city = city;
                         values.from.area = area;
+                    } else {
+                        notification.error({
+                            message: '提交失败:请重新选择始发省市区'
+                        });
+                        return;
                     }
                     if (values.to.district) {
                         const [province = '', city = '', area = ''] = getSingleDistrictLabel(values.to.district);
-                        if(values.to.district instanceof Array){
+                        if (values.to.district instanceof Array) {
                             values.to.district = values.to.district[values.to.district - 1];
                         }
                         values.to.province = province;
                         values.to.city = city;
                         values.to.area = area;
+                    } else {
+                        notification.error({
+                            message: '提交失败:请重新选择目的省市区'
+                        });
+                        return;
                     }
                     if (values.deliveryDate instanceof moment)
                         values.deliveryDate = values.deliveryDate.format("YYYY-MM-DD HH:mm:ss");
@@ -87,12 +97,12 @@ class CreateModal extends PureComponent {
         dispatch(hideCreate());
     };
 
-    changeModel = model =>{
+    changeModel = model => {
         const {dispatch} = this.props;
         dispatch(updateModel(model));
     };
 
-    receiveManChange = (e)=>{
+    receiveManChange = (e) => {
         console.info(e.target.value);
         const {dispatch, model} = this.props;
         dispatch(findByName({"name": e.target.value})).then(action => {
@@ -101,7 +111,7 @@ class CreateModal extends PureComponent {
                 const profileList = action.payload;
                 if (profileList !== undefined && profileList !== null) {
                     const profile = profileList[0];
-                    if (profile !== undefined && profile !== null){
+                    if (profile !== undefined && profile !== null) {
                         model.to = {};
                         model.to.district = profile.district;
                         model.to.province = profile.province;
@@ -111,7 +121,6 @@ class CreateModal extends PureComponent {
                         model.to.contactMan = profile.contactMan;
                         model.to.contactPhone = profile.contactPhone;
                         model.to.company = profile.company;
-                        console.info('update',model);
                         dispatch(updateModel(model));
                     }
                 }
@@ -127,7 +136,7 @@ class CreateModal extends PureComponent {
                 const profileList = action.payload;
                 if (profileList !== undefined && profileList !== null) {
                     const profile = profileList[0];
-                    if (profile !== undefined && profile !== null){
+                    if (profile !== undefined && profile !== null) {
                         model.from = {};
                         model.clientName = value;
                         model.from.district = profile.district;
@@ -139,7 +148,7 @@ class CreateModal extends PureComponent {
                         model.from.contactPhone = profile.contactPhone;
                         model.from.company = profile.company;
                         dispatch(updateModel(model));
-                    }else{
+                    } else {
                         model.clientName = value;
                         model.from.district = "";
                         model.from.province = "";
@@ -157,7 +166,7 @@ class CreateModal extends PureComponent {
     };
 
     render() {
-        const {loading, transportType, clientList, carrierList, vehicleType, calculateType, visible, model} = this.props;
+        const {loading, transportType, clientList, carrierList, vehicleType, visible, model} = this.props;
         const clients = [];
         clientList && clientList.forEach(client => {
             clients.push({value: client, label: client});
@@ -328,8 +337,8 @@ class CreateModal extends PureComponent {
                         field: 'to.contactMan',
                         title: '联系人',
                         type: 'text',
-                        controlProps:{
-                            onPressEnter:this.receiveManChange
+                        controlProps: {
+                            onPressEnter: this.receiveManChange
                         },
                         fieldOptions: {
                             rules: [{required: true, message: '请输入联系人'}]

@@ -15,7 +15,7 @@ class Filter extends PureComponent {
             fields.createTimeEnd = fields.createTimeRange[1].format(DATE_FORMAT);
         }
         delete fields.createTimeRange;
-        dispatch(query({filter: fields, page: 1, pageSize}));
+        dispatch(query({...fields, page: 1, pageSize}));
     };
 
     render() {
@@ -32,12 +32,12 @@ class Filter extends PureComponent {
                 }
             }, {
                 key: '2',
-                field: 'consignNo',
+                field: 'cindaNo',
                 type: 'text',
                 expandable: true,
-                title: '托运单号',
+                title: '先达单号',
                 fieldOptions: {
-                    initialValue: this.state.consignNo
+                    initialValue: this.state.cindaNo
                 }
             }, {
                 key: '3',
