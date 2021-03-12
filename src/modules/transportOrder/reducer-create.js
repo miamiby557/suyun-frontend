@@ -20,7 +20,6 @@ export default function create(state = defaultState, action) {
             }
             return {...state, loading: false, visible: false};
         case 'TRANSPORT_ORDER.CREATE_PENDING':
-            console.info(payload.deliveryDate);
             return {...state, model: payload, loading: true};
         default:
             return state;

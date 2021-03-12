@@ -10,7 +10,7 @@ class CreateModal extends PureComponent {
     handleCreate = () => {
         const formEditor = this.formEditor.props.form;
         if (formEditor) {
-            const {dispatch} = this.props;
+            const {dispatch, model} = this.props;
             formEditor.validateFieldsAndScroll((err, values) => {
                 if (!err) {
                     if ("整车" === values.transportType) {
@@ -21,14 +21,14 @@ class CreateModal extends PureComponent {
                             return;
                         }
                     }
-                    if ("零担" === values.transportType) {
+                    /*if ("零担" === values.transportType) {
                         if (values.calculateType === undefined || values.calculateType.length === 0) {
                             notification.error({
                                 message: '运输方式为零担,计费方式必填'
                             });
                             return;
                         }
-                    }
+                    }*/
                     if ("体积" === values.calculateType) {
                         if (values.volume === undefined || values.volume.length === 0) {
                             notification.error({
@@ -45,10 +45,10 @@ class CreateModal extends PureComponent {
                             return;
                         }
                     }
-                    if (values.from.district) {
-                        const [province = '', city = '', area = ''] = getSingleDistrictLabel(values.from.district);
-                        if (values.from.district instanceof Array) {
-                            values.from.district = values.from.district[values.from.district - 1];
+                    if (model.from.district) {
+                        const [province = '', city = '', area = ''] = getSingleDistrictLabel(model.from.district);
+                        if (model.from.district instanceof Array) {
+                            values.from.district = model.from.district[model.from.district.length - 1];
                         }
                         values.from.province = province;
                         values.from.city = city;
@@ -59,10 +59,10 @@ class CreateModal extends PureComponent {
                         });
                         return;
                     }
-                    if (values.to.district) {
-                        const [province = '', city = '', area = ''] = getSingleDistrictLabel(values.to.district);
+                    if (model.to.district) {
+                        const [province = '', city = '', area = ''] = getSingleDistrictLabel(model.to.district);
                         if (values.to.district instanceof Array) {
-                            values.to.district = values.to.district[values.to.district - 1];
+                            values.to.district = model.to.district[model.to.district.length - 1];
                         }
                         values.to.province = province;
                         values.to.city = city;
@@ -99,11 +99,11 @@ class CreateModal extends PureComponent {
 
     changeModel = model => {
         const {dispatch} = this.props;
+        // console.info("model", model);
         dispatch(updateModel(model));
     };
 
     receiveManChange = (e) => {
-        console.info(e.target.value);
         const {dispatch, model} = this.props;
         dispatch(findByName({"name": e.target.value})).then(action => {
             if (action.error !== true) {
@@ -149,6 +149,7 @@ class CreateModal extends PureComponent {
                         model.from.company = profile.company;
                         dispatch(updateModel(model));
                     } else {
+                        model.from = {};
                         model.clientName = value;
                         model.from.district = "";
                         model.from.province = "";

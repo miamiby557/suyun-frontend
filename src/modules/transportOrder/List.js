@@ -64,7 +64,7 @@ class List extends PureComponent {
                     render: text => <span>{text && Number(text).toFixed(2)}</span>,
                     width: 100
                 };
-            }else if ("address" === column.type) {
+            } else if ("address" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,
@@ -114,7 +114,7 @@ class List extends PureComponent {
         return (
             <Table
                 {...tableProps}
-                scroll={{x:1300, y: 500}}
+                scroll={{x: 1300, y: 500}}
                 columns={newColumns}
                 rowSelection={rowSelection}
                 pagination={tablePagination}
