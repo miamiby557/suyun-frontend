@@ -74,7 +74,14 @@ class ModifyModal extends PureComponent {
 
     render() {
         const {loading, transportType, clientList, carrierList, packageType, vehicleType, visible, model} = this.props;
-        console.info(model);
+        const clients = [];
+        clientList && clientList.forEach(client => {
+            clients.push({value: client, label: client});
+        });
+        const carriers = [];
+        carrierList && carrierList.forEach(carrier => {
+            carriers.push({value: carrier, label: carrier});
+        });
         const schema = [
             {
                 title: '订单信息',
@@ -84,7 +91,7 @@ class ModifyModal extends PureComponent {
                         title: '客户',
                         type: 'listSelector',
                         controlProps: {
-                            dataSource: clientList
+                            dataSource: clients
                         },
                         fieldOptions: {
                             rules: [{required: true, message: '请选择客户'}]
@@ -163,7 +170,7 @@ class ModifyModal extends PureComponent {
                         title: '走货渠道',
                         type: 'listSelector',
                         controlProps: {
-                            dataSource: carrierList
+                            dataSource: carriers
                         }
                     }, {
                         field: 'transportNo',

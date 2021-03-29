@@ -12,6 +12,7 @@ export const hideCreate = createAction(ACTION_PREFIX + "HIDE_CREATE");
 
 export const showEdit = createAction(ACTION_PREFIX + "SHOW_EDIT");
 export const hideEdit = createAction(ACTION_PREFIX + "HIDE_EDIT");
+export const updateFilter = createAction(ACTION_PREFIX + "UPDATE_FILTER");
 
 export const create = createThunkAction(ACTION_PREFIX + "CREATE", params =>
     postJson(path + "/create", params)

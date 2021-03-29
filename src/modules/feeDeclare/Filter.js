@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
-import {query} from "./actions";
+import {query, updateFilter} from "./actions";
 import {DATE_FORMAT} from "../../lib/func";
 import FilterForm from "../../components/FilterForm";
 
@@ -15,6 +15,7 @@ class Filter extends PureComponent {
             fields.createTimeEnd = fields.createTimeRange[1].format(DATE_FORMAT);
         }
         delete fields.createTimeRange;
+        dispatch(updateFilter({...fields}));
         dispatch(query({...fields, page: 1, pageSize}));
     };
 

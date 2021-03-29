@@ -19,6 +19,7 @@ export const showEdit = createAction(ACTION_PREFIX + "SHOW_EDIT");
 export const hideEdit = createAction(ACTION_PREFIX + "HIDE_EDIT");
 export const select = createAction(ACTION_PREFIX + "SELECT");
 export const updateModel = createAction(ACTION_PREFIX + "UPDATE_MODEL");
+export const updateFilter = createAction(ACTION_PREFIX + "UPDATE_FILTER");
 export const showTracking = createAction(ACTION_PREFIX + "SHOW_TRACKING_LIST");
 export const hideTracking = createAction(ACTION_PREFIX + "HIDE_TRACKING_LIST");
 

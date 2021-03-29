@@ -25,6 +25,8 @@ export default function list(state = defaultState, action) {
             };
         case 'FEE_DECLARE.SELECT':
             return {...state, selectedRowKeys: payload};
+        case 'FEE_DECLARE.UPDATE_FILTER':
+            return {...state, filter: {...payload}};
         default:
             return state;
     }

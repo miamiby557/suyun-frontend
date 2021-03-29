@@ -10,8 +10,8 @@ import AddressInfo from "../../components/AddressInfo";
 class List extends PureComponent {
 
     onPageChange = (page, pageSize) => {
-        const {dispatch} = this.props;
-        dispatch(query({page, pageSize}));
+        const {dispatch, filter} = this.props;
+        dispatch(query({...filter, page, pageSize}));
     };
 
     handleShowEdit = row => {
@@ -64,7 +64,7 @@ class List extends PureComponent {
                     render: text => getStatusText(text, feeDeclareStatus),
                     width: 180
                 };
-            }else if ("address" === column.type) {
+            } else if ("address" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,

@@ -7,8 +7,8 @@ import AddressInfo from "../../components/AddressInfo";
 
 class List extends PureComponent {
     onPageChange = (page, pageSize) => {
-        const {dispatch, transportNo} = this.props;
-        dispatch(query({transportNo, page, pageSize}));
+        const {dispatch, filter} = this.props;
+        dispatch(query({...filter, page, pageSize}));
     };
 
     handleShowEdit = row => {
@@ -21,8 +21,6 @@ class List extends PureComponent {
 
     componentWillMount() {
         const {dispatch, page, pageSize} = this.props;
-        // dispatch(carrierQuery());
-        // dispatch(clientQuery());
         dispatch(getClientList());
         dispatch(getCarrierList());
         dispatch(query({page, pageSize}));

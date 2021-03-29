@@ -9,8 +9,8 @@ import AddressInfo from "../../components/AddressInfo";
 
 class List extends PureComponent {
     onPageChange = (page, pageSize) => {
-        const {dispatch, transportNo} = this.props;
-        dispatch(query({transportNo, page, pageSize}));
+        const {dispatch, filter} = this.props;
+        dispatch(query({...filter, page, pageSize}));
     };
 
     componentWillMount() {
@@ -78,7 +78,7 @@ class List extends PureComponent {
                     },
                     width: 200
                 };
-            }else if ("address" === column.type) {
+            } else if ("address" === column.type) {
                 return {
                     title: column.label,
                     dataIndex: column.value,

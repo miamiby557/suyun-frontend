@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {Form} from "antd";
-import {query} from "./actions";
+import {query, updateFilter} from "./actions";
 import {DATE_FORMAT} from "../../lib/func";
 import FilterForm from "../../components/FilterForm";
 
@@ -23,6 +23,7 @@ class Filter extends PureComponent {
             delete fields.timeoutWarning;
         delete fields.deliveryDateRange;
         dispatch(query({...fields, page: 1, pageSize}));
+        dispatch(updateFilter({...fields}));
     };
 
     render() {

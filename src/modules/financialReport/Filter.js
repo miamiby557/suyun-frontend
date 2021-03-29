@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {Form} from "antd";
-import {query, updateCarrierName, updateClientName, updateTime} from "./actions";
+import {query, updateCarrierName, updateClientName, updateFilter, updateTime} from "./actions";
 import FilterForm from "../../components/FilterForm";
 import {DATE_FORMAT} from "../../lib/func";
 
@@ -19,7 +19,7 @@ class Filter extends PureComponent {
                 deliveryDateEnd: fields.deliveryDateEnd
             }));
         }
-        // dispatch(updateFilter(values));
+        dispatch(updateFilter(fields));
         dispatch(query({...fields, page: 1, pageSize}));
     };
 

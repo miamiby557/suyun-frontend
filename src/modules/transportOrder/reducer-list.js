@@ -8,7 +8,8 @@ const defaultState = {
     carrierList: [],
     page: 1,
     pageSize: 20,
-    totalElements: 0
+    totalElements: 0,
+    filter: null
 };
 export default function list(state = defaultState, action) {
     const {type, payload, error} = action;
@@ -29,6 +30,8 @@ export default function list(state = defaultState, action) {
             };
         case 'TRANSPORT_ORDER.SELECT':
             return {...state, selectedRowKeys: payload};
+        case 'TRANSPORT_ORDER.UPDATE_FILTER':
+            return {...state, filter: {...payload}};
         case 'TRANSPORT_ORDER.IMPORT_PENDING':
             return {...state, importLoading: true};
         case 'TRANSPORT_ORDER.IMPORT':
