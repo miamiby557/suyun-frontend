@@ -109,7 +109,7 @@ class List extends PureComponent {
             ...paginationProps,
             total: totalElements,
             current: page,
-            pageSize: pageSize,
+            pageSize: pageSize + 1,
             onShowSizeChange: (current, newSize) =>
                 this.onPageChange && this.onPageChange(1, newSize),
             onChange: this.onPageChange
@@ -118,6 +118,23 @@ class List extends PureComponent {
             selectedRowKeys,
             onChange: this.handleSelectChange
         };
+        //定义合计行数据
+        let inCome = 0.00;
+        let money = 0.00;
+        if (dataSource.length > 0) {
+            dataSource.forEach(item => {
+                inCome += item.inCome;
+                money += item.money;
+            });
+        }
+        const totalRow = {
+            id: String(Math.random()),
+            clientName: '合计',
+            inCome: inCome,
+            money: money
+        };
+        const dataSourceNew = dataSource && dataSource.length > 0 ? [...dataSource, totalRow] : [];
+        // console.info("dataSourceNew", dataSourceNew);
         return (
             <Table
                 {...tableProps}
@@ -125,7 +142,7 @@ class List extends PureComponent {
                 columns={newColumns}
                 rowSelection={rowSelection}
                 pagination={tablePagination}
-                dataSource={dataSource}
+                dataSource={dataSourceNew}
                 loading={loading}
             />
         );

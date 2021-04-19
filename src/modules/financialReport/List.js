@@ -111,12 +111,11 @@ class List extends PureComponent {
                 }
             }
         });
-
         const tablePagination = {
             ...paginationProps,
             total: totalElements,
             current: page,
-            pageSize: pageSize,
+            pageSize: pageSize + 1,
             onShowSizeChange: (current, newSize) =>
                 this.onPageChange && this.onPageChange(1, newSize),
             onChange: this.onPageChange
@@ -125,6 +124,28 @@ class List extends PureComponent {
             selectedRowKeys,
             onChange: this.handleSelectChange
         };
+        //定义合计行数据
+        let inFeeAmount = 0.00;
+        let outFeeAmount = 0.00;
+        let salesFee = 0.00;
+        let profit = 0.00;
+        if (dataSource.length > 0) {
+            dataSource.forEach(item => {
+                inFeeAmount += item.inFeeAmount;
+                outFeeAmount += item.outFeeAmount;
+                salesFee += item.salesFee;
+                profit += item.profit;
+            });
+        }
+        const totalRow = {
+            id: String(Math.random()),
+            clientName: '合计',
+            inFeeAmount: inFeeAmount,
+            outFeeAmount: outFeeAmount,
+            salesFee: salesFee,
+            profit: profit
+        };
+        const dataSourceNew = dataSource && dataSource.length > 0 ? [...dataSource, totalRow] : [];
         return (
             <Table
                 {...tableProps}
@@ -132,7 +153,7 @@ class List extends PureComponent {
                 columns={newColumns}
                 rowSelection={rowSelection}
                 pagination={tablePagination}
-                dataSource={dataSource}
+                dataSource={dataSourceNew}
                 loading={loading}
             />
         );
